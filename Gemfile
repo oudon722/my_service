@@ -18,6 +18,10 @@ gem 'sassc'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+#bootstrapを導入
+gem "bootstrap-sass", "~>3.3.6"
+gem "jquery-rails"
+gem "jquery-ui-rails"
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -39,6 +43,7 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.6.0'
+  gem "factory_bot_rails", "~> 4.10.0"
 end
 
 group :development do
