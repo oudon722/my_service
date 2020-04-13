@@ -1,4 +1,5 @@
 class StaticPagesController < ApplicationController
+  skip_before_action :require_login
   def home
   end
 
@@ -6,11 +7,5 @@ class StaticPagesController < ApplicationController
   end
 
   def about
-  end
-
-  def login
-  end
-
-  def new
   end
 end
