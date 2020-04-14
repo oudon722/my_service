@@ -8,8 +8,6 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 
@@ -42,6 +40,7 @@ gem 'bcrypt', '~> 3.1.11'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'rspec-rails', '~> 3.6.0'
   gem 'capybara', '~> 2.15.2'
   gem "factory_bot_rails", "~> 4.10.0"
