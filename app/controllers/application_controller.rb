@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :require_login
 
   private
-
+    #beforeアクションを定義
     def require_login
       unless logged_in?
         flash[:danger] = "ユーザーログインが必要です"
@@ -18,5 +18,10 @@ class ApplicationController < ActionController::Base
         flash[:danger] = "この操作を行うにはログアウトしてください"
         redirect_to user_url(@current_user)
       end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to root_url unless current_user?(@user)
     end
 end

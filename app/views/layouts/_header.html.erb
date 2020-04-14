@@ -10,7 +10,7 @@
         <%= link_to 'ログアウト', logout_path, class: '', method: :delete %>
         <%= link_to '宅オフを探す', '#', class: '' %>
         <%= link_to '宅オフを作る', '#', class: '' %>
-        <%= link_to 'ユーザープロフィール', '#', class: '' %>
+        <%= link_to 'ユーザープロフィール', user_path(current_user), class: '' %>
       <% else %>
         <%= link_to '新規登録', signup_path, class: '' %>
         <%= link_to 'ログイン', login_path, class: '' %>

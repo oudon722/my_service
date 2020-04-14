@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
   before_action :require_logout, only: [:new, :create]
+  before_action :correct_user, only: [:edit, :update]
   def show
     @user = User.find_by(id: params[:id])
   end
@@ -20,8 +21,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "プロフィールを更新しました！"
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
   private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :player_name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :player_name, :email, :password, :password_confirmation, :nearest_station, :ssbu_experience, :ssbu_skill, :using_character, :lived_prefecture)
     end
 end
