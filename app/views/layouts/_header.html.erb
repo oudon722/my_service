@@ -1,0 +1,22 @@
+<header>
+  <div class="row">
+    <div class="brand-icon col-sm-2">
+      <%= link_to root_path, class: '' do %>
+          <%= image_tag "gameicon.png" %>
+      <% end %>
+    </div>
+    <div class="links col-sm-10">
+      <% if logged_in? %>
+        <%= link_to 'ログアウト', logout_path, class: '', method: :delete %>
+        <%= link_to '宅オフを探す', '#', class: '' %>
+        <%= link_to '宅オフを作る', '#', class: '' %>
+        <%= link_to 'ユーザープロフィール', '#', class: '' %>
+      <% else %>
+        <%= link_to '新規登録', signup_path, class: '' %>
+        <%= link_to 'ログイン', login_path, class: '' %>
+      <% end %>
+        <%= link_to 'スマ宅！とは', about_path, class: '' %>
+        <%= link_to 'ヘルプ', help_path, class: '' %>
+    </div>
+  </div>
+</header>

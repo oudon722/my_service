@@ -1,0 +1,18 @@
+<h1>ログインページ</h1>
+
+<%= form_for(:session, url: login_path) do |f| %>
+
+  <%= f.label :email, "メールアドレス" %>
+  <%= f.email_field :email %>
+
+  <%= f.label :password, "パスワード" %>
+  <%= f.password_field :password %>
+
+  <%= f.label :remember_me, class: "" do %>
+    <%= f.check_box :remember_me %>
+    <span>ログインしたままにする</span>
+  <% end %>
+
+  <%= f.submit "ログイン", class: "btn btn-primary" %>
+
+<% end %>
