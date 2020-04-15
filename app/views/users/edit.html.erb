@@ -15,5 +15,18 @@
   <%= f.label :lived_prefecture, "都道府県" %>
   <%= f.select :lived_prefecture, User.lived_prefectures.keys, {prompt: '選択してください'}, class: '' %>
 
+  <%= f.label :ssbu_experience, "スマブラ歴" %>
+  <%= f.select :ssbu_experience, User.ssbu_experiences.keys, {prompt: '選択してください'},
+  class: '' %>
+
+  <%= f.label :ssbu_skill, "スマブラの実力" %>
+  <%= f.select :ssbu_skill, User.ssbu_skills.keys, {prompt: '選択してください'},
+  class: '' %>
+
+  <%= f.label :using_character, "メイン使用キャラ" %>
+  <%= f.select :using_character, User.using_characters.keys, {prompt: '選択してください'},
+  class: '' %>
+
+
   <%= f.submit "ユーザー情報更新！", class: "btn btn-primary" %>
 <% end %>

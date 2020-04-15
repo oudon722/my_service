@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "Users", type: :feature do
+  include LoginSupport
   #root_pathからユーザーが新規登録画面に移動し、新規登録できる
   scenario "can sign up nomally" do
     visit root_path
@@ -16,5 +17,12 @@ RSpec.feature "Users", type: :feature do
       expect(page).to have_content("player")
       expect(page).to have_content("ユーザー登録完了！")
     }.to change{User.count}.by(1)
+  end
+
+  scenario "success edit with friendly forwarding" do
+    user = FactoryBot.create(:user)
+    visit edit_user_path(user)
+    log_in_as(user)
+    expect(current_path).to eq edit_user_path(user)
   end
 end

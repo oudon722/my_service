@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200414084520) do
+ActiveRecord::Schema.define(version: 20200415062040) do
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(version: 20200414084520) do
     t.string "password_digest"
     t.string "remember_digest"
     t.string "nearest_station"
-    t.string "ssbu_experience"
-    t.string "ssbu_skill"
-    t.string "using_character"
+    t.integer "ssbu_experience"
+    t.integer "ssbu_skill"
+    t.integer "using_character"
     t.integer "lived_prefecture"
   end
 
