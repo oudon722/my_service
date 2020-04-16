@@ -53,7 +53,7 @@ class PasswordResetsController < ApplicationController
       params.require(:user).permit(:password, :password_confirmation)
     end
 
-    def password_reset_expired?
+    def @user.password_reset_expired?
       @user.reset_sent_at < 1.hours.ago
     end
 
