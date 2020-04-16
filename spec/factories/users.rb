@@ -1,4 +1,6 @@
 FactoryBot.define do
+  reset_token = User.new_token
+
   factory :user do
     first_name "太郎"
     last_name "田中"
@@ -8,6 +10,7 @@ FactoryBot.define do
     password "examplepassw0rd"
     password_confirmation "examplepassw0rd"
     activated true
+    # reset_digest fojdsakjvnsajnvsaknvji
 
     #無効なemailアドレス
     trait :invalid_email_adress do
