@@ -7,6 +7,7 @@ FactoryBot.define do
     #has_secure_passwordで出来た２つの仮想的な属性
     password "examplepassw0rd"
     password_confirmation "examplepassw0rd"
+    activated true
 
     #無効なemailアドレス
     trait :invalid_email_adress do
@@ -26,6 +27,11 @@ FactoryBot.define do
     #21文字以上の名前
     trait :long_player_name do
       player_name "a"*21
+    end
+
+    #有効化されていないアカウント
+    trait :not_activated do
+      activated false
     end
   end
 end

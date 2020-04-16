@@ -22,6 +22,7 @@
   <%= f.label :ssbu_skill, "スマブラの実力" %>
   <%= f.select :ssbu_skill, User.ssbu_skills.keys, {prompt: '選択してください'},
   class: '' %>
+  <span>オンラインをやってない方はこれくらいだと思うで問題ないです。</span>
 
   <%= f.label :using_character, "メイン使用キャラ" %>
   <%= f.select :using_character, User.using_characters.keys, {prompt: '選択してください'},

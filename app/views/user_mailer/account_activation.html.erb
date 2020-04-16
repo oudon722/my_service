@@ -1,0 +1,7 @@
+
+
+<p><%= @user.name %>さん。スマ宅へようこそ！</p>
+
+<p>下記のリンクをクリックしてアカウントを有効にしてください。</p>
+
+<%= link_to "アカウントを有効にする", edit_account_activation_url(@user.activation_token, email: @user.email) %>
