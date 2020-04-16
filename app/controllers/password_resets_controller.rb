@@ -53,6 +53,10 @@ class PasswordResetsController < ApplicationController
       params.require(:user).permit(:password, :password_confirmation)
     end
 
+    def password_reset_expired?
+      @user.reset_sent_at < 1.hours.ago
+    end
+
     def check_expiration
       if @user.password_reset_expired?
         flash[:danger] = "パスワード更新の有効期限が過ぎています"
