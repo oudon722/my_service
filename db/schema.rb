@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200416072713) do
+ActiveRecord::Schema.define(version: 20200418012249) do
+
+  create_table "station_data", force: :cascade do |t|
+    t.integer "station_g_cd"
+    t.string "station_name"
+    t.integer "line_cd"
+    t.integer "pref_cd"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "lon"
+    t.decimal "lat"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -21,7 +33,6 @@ ActiveRecord::Schema.define(version: 20200416072713) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.string "remember_digest"
-    t.string "nearest_station"
     t.integer "ssbu_experience"
     t.integer "ssbu_skill"
     t.integer "using_character"
@@ -31,6 +42,7 @@ ActiveRecord::Schema.define(version: 20200416072713) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.integer "station_datum_id"
   end
 
 end

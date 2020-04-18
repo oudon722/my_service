@@ -16,6 +16,12 @@
   <%= f.label :lived_prefecture, "都道府県" %>
   <%= f.select :lived_prefecture, User.lived_prefectures.keys, {prompt: '選択してください'}, class: '' %>
 
+  <% station_name = @user.station_datum == nil ? nil : @user.station_datum.station_name %>
+  <%= label_tag(:station_datum_station_name, "最寄り駅") %>
+  <span>正式名称でお願いします。同じ駅名が複数あり、うまくいかない場合はこちらにご連絡いただけると幸いです。</span>
+  <%= text_field :station_datum, :station_name, value: station_name %>
+  <p>駅</p>
+
   <%= f.label :ssbu_experience, "スマブラ歴" %>
   <%= f.select :ssbu_experience, User.ssbu_experiences.keys, {prompt: '選択してください'},
   class: '' %>

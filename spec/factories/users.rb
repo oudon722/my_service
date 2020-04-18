@@ -10,6 +10,7 @@ FactoryBot.define do
     password "examplepassw0rd"
     password_confirmation "examplepassw0rd"
     activated true
+    station_datum_id 1
     # reset_digest fojdsakjvnsajnvsaknvji
 
     #無効なemailアドレス

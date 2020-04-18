@@ -29,4 +29,38 @@ RSpec.feature "Users", type: :feature do
     log_in_as(user)
     expect(current_path).to eq edit_user_path(user)
   end
+
+  feature "send the nearest station info" do
+    background do
+      @user = FactoryBot.create(:user)
+      FactoryBot.create(:station_datum)
+      visit login_path
+      log_in_as(@user)
+      visit edit_user_path(@user)
+    end
+    #存在しない駅名ならレンダーされてフラッシュメッセージが表示される
+    scenario "can't save unless the info is true" do
+      fill_in '最寄り駅', with: 'はこだて'
+      click_button 'ユーザー情報更新！'
+      expect(current_path).to eq edit_user_path(@user)
+      expect(page).to have_content '存在しない駅名、もしくは駅名が正式名称ではありません。'
+    end
+
+    #存在する駅名なら保存される
+    scenario "can save if the info is true" do
+      fill_in '最寄り駅', with: '函館'
+      click_button 'ユーザー情報更新！'
+      expect(current_path).to eq user_path(@user)
+      expect(@user.station_datum.station_name).to eq '函館'
+    end
+
+
+    #駅名が空白ならそのまま更新に成功する
+    scenario "can save if the info is blank" do
+      fill_in '最寄り駅', with: ''
+      click_button 'ユーザー情報更新！'
+      expect(current_path).to eq user_path(@user)
+      expect(page).to have_content 'プロフィールを更新しました！'
+    end
+  end
 end

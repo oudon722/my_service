@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  belongs_to :station_datum, optional: true
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
@@ -14,6 +15,7 @@ class User < ApplicationRecord
               format: {with: VALID_PASSWORD_REGIX, message: :invalid_password},
               allow_blank: true
   has_secure_password
+
   enum lived_prefecture: {
     北海道:1,青森県:2,岩手県:3,宮城県:4,秋田県:5,山形県:6,福島県:7,
     茨城県:8,栃木県:9,群馬県:10,埼玉県:11,千葉県:12,東京都:13,神奈川県:14,
