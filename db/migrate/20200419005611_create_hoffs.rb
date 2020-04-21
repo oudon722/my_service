@@ -7,7 +7,7 @@ class CreateHoffs < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    add_index :Hoffs, :name
-    add_index :Hoffs, :owner_id
+    add_index :hoffs, :name
+    add_index :hoffs, :owner_id
   end
 end
