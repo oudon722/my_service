@@ -6,7 +6,7 @@ class AccountActivationsController < ApplicationController
       user.update_attribute(:activated, true)
       user.update_attribute(:activated_at, Time.zone.now)
       log_in user
-      flash[:success] = "本登録完了！ユーザーページから詳細な情報を書き込もう！"
+      flash[:success] = "本登録完了！ユーザー情報編集から詳細な情報を書き込もう！"
       redirect_to user
     else
       flash[:danger] = "有効化の期限が切れています"

@@ -1,7 +1,7 @@
 FactoryBot.define do
   reset_token = User.new_token
 
-  factory :user do
+  factory :user, aliases: [:owner] do
     first_name "太郎"
     last_name "田中"
     sequence(:email) { |n| "tester#{n}@example.com"}

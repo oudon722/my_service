@@ -1,3 +1,12 @@
 <% provide(:title, "#{@user.player_name}") %>
 <h1><%= "ユーザーの名前が#{@user.player_name}のページ" %></h1>
-<%= link_to 'ユーザー情報編集', edit_user_path(current_user) %>
+<% if current_user.id == @user.id %>
+  <%= link_to 'ユーザー情報編集', edit_user_path(current_user) %>
+<% end %>
+
+<h1>作成した宅オフ一覧</h1>
+<% @user.my_hoffs.each do |hoff| %>
+  <%= link_to hoff.name, hoff_path(hoff) %>
+<% end %>
+
+<h1>参加する宅オフ一覧</h1>

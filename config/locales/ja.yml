@@ -10,6 +10,9 @@ ja:
         first_name: 名前
         last_name: 姓
         player_name: ゲーム内での名前
+      hoff:
+        name: 宅オフの名前
+        dates: 開催日時
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
@@ -212,7 +215,7 @@ ja:
   time:
     am: 午前
     formats:
-      default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      default: "%Y年%m月%d日(%a) %H時%M分"
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後

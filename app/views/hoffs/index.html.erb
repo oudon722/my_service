@@ -1,0 +1,5 @@
+<% provide(:title, "宅オフ一覧") %>
+<h1>宅オフ一覧</h1>
+<% @hoff.each do |hoff| %>
+  <%= link_to hoff.name, hoff_path(hoff) %>
+<% end %>

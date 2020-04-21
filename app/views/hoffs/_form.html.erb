@@ -1,0 +1,11 @@
+<%= form_for(@hoff) do |f| %>
+  <%= render "shared/hoff_error_messages" %>
+
+  <%= f.label :name, "宅オフの名前" %>
+  <%= f.text_field :name %>
+
+  <%= f.label :dates, "開催日時" %>
+  <%= f.datetime_select :dates %>
+
+  <%= f.submit yield(:button_text), class: "btn, btn-primary"%>
+<% end %>

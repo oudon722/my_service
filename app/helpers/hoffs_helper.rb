@@ -1,0 +1,2 @@
+module HoffsHelper
+end

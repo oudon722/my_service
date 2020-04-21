@@ -1,5 +1,12 @@
 class User < ApplicationRecord
   belongs_to :station_datum, optional: true
+  has_many :my_hoffs, class_name: "Hoff",
+                  foreign_key: "owner_id",
+                  dependent: :destroy
+  has_many :hoff_relationships, class_name: "HoffRelationship", #class名は書かなくても良い
+                  foreign_key: "participant_id",
+                  dependent: :destroy
+  has_many :others_hoffs, through: :hoff_relationships, source: :hoff
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest

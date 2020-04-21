@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200418012249) do
+ActiveRecord::Schema.define(version: 20200419005611) do
+
+  create_table "hoff_relationships", force: :cascade do |t|
+    t.integer "hoff_id"
+    t.integer "participant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hoff_id", "participant_id"], name: "index_hoff_relationships_on_hoff_id_and_participant_id", unique: true
+    t.index ["hoff_id"], name: "index_hoff_relationships_on_hoff_id"
+    t.index ["participant_id"], name: "index_hoff_relationships_on_participant_id"
+  end
+
+  create_table "hoffs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "dates"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_Hoffs_on_name"
+    t.index ["owner_id"], name: "index_Hoffs_on_owner_id"
+  end
 
   create_table "station_data", force: :cascade do |t|
     t.integer "station_g_cd"

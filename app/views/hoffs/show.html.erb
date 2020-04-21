@@ -1,0 +1,8 @@
+<% provide(:title, "#{@hoff.name}") %>
+<h1><%= @hoff.name %>のページ</h1>
+<h2><%= l @hoff.dates %>開催！</h2>
+
+<% if @hoff.owner.id == current_user.id %>
+  <%= link_to "この宅オフの情報を変更する", edit_hoff_path(@hoff) %>
+  <%= link_to "この宅オフを削除する", hoff_path(@hoff), method: :delete, data: {confirm: "本当に削除しますか？"} %>
+<% end %>

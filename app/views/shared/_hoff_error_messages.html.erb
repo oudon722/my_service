@@ -1,0 +1,8 @@
+<% if @hoff.errors.any? %>
+  <%= "#{@hoff.errors.count}個のエラーがあります。" %>
+  <ul>
+  <%= @hoff.errors.full_messages do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+<% end %>
