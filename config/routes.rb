@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :hoffs
+  resources :hoff_relationships, only: [:create, :destroy]
+  resources :hoff_relationship_activations, only: [:new]
+  resources :prefectures, only: [] do
+    resources :cities, only: :index
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

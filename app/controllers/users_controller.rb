@@ -26,30 +26,17 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    if station_datum = StationDatum.find_by(station_name: params[:station_datum][:station_name])
-      params[:user][:station_datum_id] = station_datum.id
-      if @user.update_attributes(user_params)
-        flash[:success] = "プロフィールを更新しました！"
-        redirect_to @user
-      else
-        render 'edit'
-      end
-    elsif params[:station_datum][:station_name].blank?
-      if @user.update_attributes(user_params)
-        flash[:success] = "プロフィールを更新しました！"
-        redirect_to @user
-      else
-        render 'edit'
-      end
+  @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "プロフィールを更新しました！"
+      redirect_to @user
     else
-      flash[:danger] = "存在しない駅名、もしくは駅名が正式名称ではありません。"
-      redirect_to edit_user_path(@user)
+      render 'edit'
     end
   end
 
   private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :player_name, :email, :password, :password_confirmation, :station_datum_id, :ssbu_experience, :ssbu_skill, :using_character, :lived_prefecture)
+      params.require(:user).permit(:first_name, :last_name, :player_name, :email, :password, :password_confirmation, :station_name, :ssbu_experience, :ssbu_skill, :using_character, :prefecture_id, :city_id)
     end
 end

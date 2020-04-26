@@ -1,0 +1,2 @@
+module HoffRelationshipsHelper
+end

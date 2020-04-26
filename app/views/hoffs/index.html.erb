@@ -1,5 +1,64 @@
 <% provide(:title, "宅オフ一覧") %>
+
+<h1>宅オフ検索</h1>
+<p>検索したい条件だけ入力してください(複数可)。</p>
+<div class="search-form">
+  <%= form_with(scope: :search, url: hoffs_path, method: :get, local: true) do |f| %>
+
+    <div class="field">
+      <%= f.label(:dates, "開催日") %>
+      <%= f.date_field :dates_from, value: @search_params[:dates_from] %> ~ <%= f.date_field :dates_to, value: @search_params[:dates_to] %>の間
+    </div>
+
+    <div class="field">
+      <% prefecture_options = Prefecture.order(:id).map { |c| [c.name, c.id, data: { children_path: prefecture_cities_path(c) }] } %>
+      <%= f.label :prefecture_id, "都道府県" %>
+      <%= f.select :prefecture_id, prefecture_options, { include_blank: true }, class: 'select-parent' %>
+    </div>
+
+    <div class="field">
+      <% cities = @prefecture.try(:cities) || [] %>
+      <% cities_options = cities.map { |c| [c.name, c.id] } %>
+      <%= f.label :city_id, "市区町村" %>
+      <%= f.select :city_id, cities_options, { include_blank: true }, class: 'select-children' %>
+    </div>
+
+    <div class="field">
+      <%= f.label(:required_level, "求めるレベル") %>
+      <%= f.select :required_level, Hoff.required_levels.keys, { include_blank: true }, value: @search_params[:required_level], class: '' %>
+    </div>
+
+    <div class="field">
+      <%= f.label(:pt_cost, "参加費") %>
+      <%= f.telephone_field :pt_cost_from, value: @search_params[:pt_cost_from] %>円 ~ <%= f.telephone_field :pt_cost_to, value: @search_params[:pt_cost_to] %>円
+      <p>なしがいい場合は0円~0円</p>
+    </div>
+
+    <div class="field">
+      <%= f.label(:parking_space, "駐車場の有無") %>
+      <%= f.collection_radio_buttons(:parking_space, Hoff.parking_spaces, :first, :first) do |r| %>
+        <%= tag.div(class: 'form-check form-check-inline') do %>
+          <%= r.radio_button(checked: r.value == @search_params[:parking_space], class: 'form-check-input') + f.label(r.value, class: 'form-check-label') %>
+        <% end %>
+      <% end %>
+    </div>
+<!--
+    <div class="field">
+      <%= f.label(:permit_first_look, "初めてでも大丈夫か？") %>
+      <%= f.collection_radio_buttons(:permit_first_look, Hoff.permit_first_looks, :first, :first) do |r| %>
+        <%= tag.div(class: 'form-check form-check-inline') do %>
+          <%= r.radio_button(checked: r.value == @search_params[:permit_first_look], class: 'form-check-input') + f.label(r.value, class: 'form-check-label') %>
+        <% end %>
+      <% end %>
+    </div>
+ -->
+    <%= f.submit "検索！", class: "btn, btn-primary" %>
+  <% end %>
+</div>
+
 <h1>宅オフ一覧</h1>
 <% @hoff.each do |hoff| %>
-  <%= link_to hoff.name, hoff_path(hoff) %>
+  <li>
+    <%= link_to hoff.name, hoff_path(hoff) %>
+  </li>
 <% end %>

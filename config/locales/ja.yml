@@ -10,9 +10,18 @@ ja:
         first_name: 名前
         last_name: 姓
         player_name: ゲーム内での名前
+        station_name: 最寄り駅
       hoff:
         name: 宅オフの名前
-        dates: 開催日時
+        dates: 開催予定日時
+        required_level: 求めるレベル
+        pt_cost: 参加費
+        max_pt_count: 参加上限人数
+        parking_space: 駐車場の有無
+        station_name: 最寄り駅
+        details: 宅オフ紹介文
+        end_dates: 終了予定日時
+        permit_first_look: 初めて家に来る人を許可するか
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

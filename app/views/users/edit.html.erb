@@ -3,38 +3,54 @@
 
 <%= form_for(@user) do |f| %>
   <%= render 'shared/error_messages' %>
+  <div class="field">
+    <%= f.label :last_name, "姓" %>
+    <%= f.text_field :last_name %>
+    <%= f.label :first_name, "名" %>
+    <%= f.text_field :first_name %>
+  </div>
 
-  <%= f.label :last_name, "姓" %>
-  <%= f.text_field :last_name %>
+  <div class="field">
+    <%= f.label :player_name, "ゲーム内での名前" %>
+    <%= f.text_field :player_name %>
+  </div>
 
-  <%= f.label :first_name, "名" %>
-  <%= f.text_field :first_name %>
+  <div class="field">
+    <% prefecture_options = Prefecture.order(:id).map { |c| [c.name, c.id, data: { children_path: prefecture_cities_path(c) }] } %>
+    <%= f.label :prefecture_id, "都道府県" %>
+    <%= f.select :prefecture_id, prefecture_options, { include_blank: true }, class: 'select-parent' %>
+  </div>
 
-  <%= f.label :player_name, "ゲーム内での名前" %>
-  <%= f.text_field :player_name %>
+  <div class="field">
+    <% cities = @user.prefecture.try(:cities) || [] %>
+    <% cities_options = cities.map { |c| [c.name, c.id] } %>
+    <%= f.label :city_id, "市区町村" %>
+    <%= f.select :city_id, cities_options, { include_blank: true }, class: 'select-children' %>
+  </div>
 
-  <%= f.label :lived_prefecture, "都道府県" %>
-  <%= f.select :lived_prefecture, User.lived_prefectures.keys, {prompt: '選択してください'}, class: '' %>
+  <div class="field">
+    <%= f.label :station_name, "最寄り駅" %>
+    <%= f.text_field :station_name %>
+    <p>駅</p>
+  </div>
+  <div class="field">
+    <%= f.label :ssbu_experience, "スマブラ歴" %>
+    <%= f.select :ssbu_experience, User.ssbu_experiences.keys, {prompt: '選択してください'},
+    class: '' %>
+  </div>
 
-  <% station_name = @user.station_datum == nil ? nil : @user.station_datum.station_name %>
-  <%= label_tag(:station_datum_station_name, "最寄り駅") %>
-  <span>正式名称でお願いします。同じ駅名が複数あり、うまくいかない場合はこちらにご連絡いただけると幸いです。</span>
-  <%= text_field :station_datum, :station_name, value: station_name %>
-  <p>駅</p>
+  <div class="field">
+    <%= f.label :ssbu_skill, "スマブラの実力" %>
+    <%= f.select :ssbu_skill, User.ssbu_skills.keys, {prompt: '選択してください'},
+    class: '' %>
+    <span>オンラインをやってない方はこれくらいだと思うで問題ないです。</span>
+  </div>
 
-  <%= f.label :ssbu_experience, "スマブラ歴" %>
-  <%= f.select :ssbu_experience, User.ssbu_experiences.keys, {prompt: '選択してください'},
-  class: '' %>
-
-  <%= f.label :ssbu_skill, "スマブラの実力" %>
-  <%= f.select :ssbu_skill, User.ssbu_skills.keys, {prompt: '選択してください'},
-  class: '' %>
-  <span>オンラインをやってない方はこれくらいだと思うで問題ないです。</span>
-
-  <%= f.label :using_character, "メイン使用キャラ" %>
-  <%= f.select :using_character, User.using_characters.keys, {prompt: '選択してください'},
-  class: '' %>
-
+  <div class="field">
+    <%= f.label :using_character, "メイン使用キャラ" %>
+    <%= f.select :using_character, User.using_characters.keys, {prompt: '選択してください'},
+    class: '' %>
+  </div>
 
   <%= f.submit "ユーザー情報更新！", class: "btn btn-primary" %>
 <% end %>

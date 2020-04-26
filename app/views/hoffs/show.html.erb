@@ -2,7 +2,23 @@
 <h1><%= @hoff.name %>のページ</h1>
 <h2><%= l @hoff.dates %>開催！</h2>
 
+<h1>参加者一覧</h1>
+<% if !@hoff.participants.nil? %>
+  <% @hoff.participants.each do |pt| %>
+    <li>
+      <%= link_to pt.player_name, user_path(pt) %>
+    </li>
+  <% end %>
+<% end %>
+
 <% if @hoff.owner.id == current_user.id %>
   <%= link_to "この宅オフの情報を変更する", edit_hoff_path(@hoff) %>
   <%= link_to "この宅オフを削除する", hoff_path(@hoff), method: :delete, data: {confirm: "本当に削除しますか？"} %>
+<% end %>
+
+<% if !current_user.nil? && @hoff.owner.id != current_user.id && @hoff.participants.exists?(id: current_user.id) %>
+  <%= form_for(current_user.hoff_relationships.build) do |f| %>
+    <%= hidden_field_tag :hoff_id, @hoff.id %>
+    <%= f.submit "参加を申請する", class: "btn, btn-primary" %>
+  <% end %>
 <% end %>

@@ -27,6 +27,6 @@ RSpec.describe Hoff, type: :model do
   it "is invalid when dates has passed" do
     hoff = FactoryBot.build(:hoff, :passed_dates)
     hoff.valid?
-    expect(hoff.errors[:dates]).to include("は現在時刻より後の時間を入力してください")
+    expect(hoff.errors[:dates]).to include("は現在時刻以降の日時を指定してください")
   end
 end

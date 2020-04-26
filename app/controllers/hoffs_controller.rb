@@ -2,7 +2,8 @@ class HoffsController < ApplicationController
   before_action :can_modify, only: [:edit, :update, :destroy]
 
   def index
-    @hoff = Hoff.all
+    @search_params = hoff_search_params
+    @hoff = Hoff.search(@search_params).includes(:prefecture).includes(:city)
   end
 
   def new
@@ -46,6 +47,12 @@ class HoffsController < ApplicationController
 
   private
     def hoff_params
-      params.require(:hoff).permit(:name, :dates)
+      params.require(:hoff).permit(:name, :dates, :prefecture_id, :city_id, :required_level, :pt_cost, :max_pt_count, :parking_space, :station_name, :details, :end_dates)
     end
+
+    def hoff_search_params
+      params.fetch(:search, {}).permit(:dates_to, :dates_from, :prefecture_id, :city_id, :required_level, :pt_cost_from, :pt_cost_to, :parking_space)
+    end
+
+
 end

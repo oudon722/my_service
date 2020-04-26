@@ -10,3 +10,23 @@
 <% end %>
 
 <h1>参加する宅オフ一覧</h1>
+<% @user.others_hoffs.each do |hoff| %>
+  <% if hoff.pt_relationships.find_by(participant_id: @user.id).activated? %>
+    <%= link_to hoff.name, hoff_path(hoff), class: "pt_hoff" %>
+  <% else %>
+    <h1>申請中</h1>
+    <%= link_to hoff.name, hoff_path(hoff) %>
+  <% end %>
+<% end %>
+
+<h1>申請一覧</h1>
+<% @user.my_hoffs.each do |hoff| %>
+  <% hoff.pt_relationships.each do |rel| %>
+    <% if rel.activated == false %>
+      <h3><%= "#{hoff.name}に申請が来ています！" %></h3>
+      <%= link_to rel.participant.player_name, user_path(rel.participant) %>
+      <%= link_to "承認", new_hoff_relationship_activation_path(rel_id: rel.id), data: {confirm: "#{rel.participant.player_name}を承認しますか？"} %>
+      <%= link_to '断る', hoff_relationship_activation_path(rel, rel_id: rel.id), method: :delete, data: {confirm: "本当に断りますか？"} %>
+    <% end %>
+  <% end %>
+<% end %>

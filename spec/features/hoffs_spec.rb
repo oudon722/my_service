@@ -10,14 +10,14 @@ RSpec.feature "Hoffs", type: :feature do
     log_in_as(user)
     visit user_path(user)
     click_link '宅オフを作る'
-    fill_in '宅オフの名前', with: 'テスト宅オフ'
+    fill_in '宅オフの名前', with: 'テスト1宅オフ'
     d = Date.tomorrow
     select d.month, :from => "hoff_dates_2i"
     select d.day, :from => "hoff_dates_3i"
     click_button '宅オフ作成！'
     expect(current_path).to eq user_path(user)
     expect(page).to have_content "宅オフを作成しました！"
-    expect(page).to have_content "テスト宅オフ"
+    expect(page).to have_content "テスト1宅オフ"
   end
 
   feature "user edit a hoff" do

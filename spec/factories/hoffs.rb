@@ -8,5 +8,4 @@ FactoryBot.define do
       dates 1.day.ago
     end
   end
-
 end

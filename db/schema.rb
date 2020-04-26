@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200419005611) do
+ActiveRecord::Schema.define(version: 20200426013412) do
+
+  create_table "cities", force: :cascade do |t|
+    t.integer "prefecture_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "hoff_relationships", force: :cascade do |t|
     t.integer "hoff_id"
     t.integer "participant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "activated", default: false
     t.index ["hoff_id", "participant_id"], name: "index_hoff_relationships_on_hoff_id_and_participant_id", unique: true
     t.index ["hoff_id"], name: "index_hoff_relationships_on_hoff_id"
     t.index ["participant_id"], name: "index_hoff_relationships_on_participant_id"
@@ -28,20 +36,22 @@ ActiveRecord::Schema.define(version: 20200419005611) do
     t.integer "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "required_level"
+    t.integer "pt_cost"
+    t.integer "max_pt_count"
+    t.integer "parking_space"
+    t.text "details"
+    t.datetime "end_dates"
+    t.integer "permit_first_look"
+    t.string "station_name"
+    t.integer "prefecture_id"
+    t.integer "city_id"
     t.index ["name"], name: "index_Hoffs_on_name"
     t.index ["owner_id"], name: "index_Hoffs_on_owner_id"
   end
 
-  create_table "station_data", force: :cascade do |t|
-    t.integer "station_g_cd"
-    t.string "station_name"
-    t.integer "line_cd"
-    t.integer "pref_cd"
-    t.string "address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.decimal "lon"
-    t.decimal "lat"
+  create_table "prefectures", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,13 +66,14 @@ ActiveRecord::Schema.define(version: 20200419005611) do
     t.integer "ssbu_experience"
     t.integer "ssbu_skill"
     t.integer "using_character"
-    t.integer "lived_prefecture"
     t.string "activation_digest"
     t.boolean "activated", default: false
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
-    t.integer "station_datum_id"
+    t.string "station_name"
+    t.integer "city_id"
+    t.integer "prefecture_id"
   end
 
 end
