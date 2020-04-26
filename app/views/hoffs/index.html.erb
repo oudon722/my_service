@@ -13,14 +13,14 @@
     <div class="field">
       <% prefecture_options = Prefecture.order(:id).map { |c| [c.name, c.id, data: { children_path: prefecture_cities_path(c) }] } %>
       <%= f.label :prefecture_id, "都道府県" %>
-      <%= f.select :prefecture_id, prefecture_options, { include_blank: true }, class: 'select-parent' %>
+      <%= f.select :prefecture_id, prefecture_options, { include_blank: true }, class: 'select-parent', value: @search_params[:prefecture_id] || current_user.prefecture_id %>
     </div>
 
     <div class="field">
       <% cities = @prefecture.try(:cities) || [] %>
       <% cities_options = cities.map { |c| [c.name, c.id] } %>
       <%= f.label :city_id, "市区町村" %>
-      <%= f.select :city_id, cities_options, { include_blank: true }, class: 'select-children' %>
+      <%= f.select :city_id, cities_options, { include_blank: true }, class: 'select-children', value: @search_params[:city_id] || current_user.city_id %>
     </div>
 
     <div class="field">
@@ -58,7 +58,9 @@
 
 <h1>宅オフ一覧</h1>
 <% @hoff.each do |hoff| %>
-  <li>
-    <%= link_to hoff.name, hoff_path(hoff) %>
-  </li>
+  <% if hoff.participants.count != hoff.max_pt_count %>
+    <li>
+      <%= link_to hoff.name, hoff_path(hoff) %>
+    </li>
+  <% end %>
 <% end %>

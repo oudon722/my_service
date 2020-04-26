@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :hoffs
   resources :hoff_relationships, only: [:create, :destroy]
-  resources :hoff_relationship_activations, only: [:new]
+  resources :hoff_relationship_activations, only: [:new, :destroy]
   resources :prefectures, only: [] do
     resources :cities, only: :index
   end

@@ -4,10 +4,12 @@
 
 <h1>参加者一覧</h1>
 <% if !@hoff.participants.nil? %>
-  <% @hoff.participants.each do |pt| %>
+  <% @hoff.pt_relationships.each do |pt_rel| %>
+    <% if pt_rel.activated == true %>
     <li>
-      <%= link_to pt.player_name, user_path(pt) %>
+      <%= link_to pt_rel.participant.player_name, user_path(pt_rel.participant) %>
     </li>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -16,9 +18,11 @@
   <%= link_to "この宅オフを削除する", hoff_path(@hoff), method: :delete, data: {confirm: "本当に削除しますか？"} %>
 <% end %>
 
-<% if !current_user.nil? && @hoff.owner.id != current_user.id && @hoff.participants.exists?(id: current_user.id) %>
+<% if !current_user.nil? && @hoff.owner.id != current_user.id && !@hoff.participants.exists?(id: current_user.id) && @hoff.dates > Time.zone.now && @hoff.participants.count < @hoff.max_pt_count %>
   <%= form_for(current_user.hoff_relationships.build) do |f| %>
     <%= hidden_field_tag :hoff_id, @hoff.id %>
     <%= f.submit "参加を申請する", class: "btn, btn-primary" %>
   <% end %>
+<% elsif @hoff.participants.count == @hoff.max_pt_count %>
+  <h2>参加者が上限に達しています。</h2>
 <% end %>
