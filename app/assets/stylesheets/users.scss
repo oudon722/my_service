@@ -1,3 +1,296 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body .alert {
+  margin-bottom: 0;
+}
+body h1 {
+  margin: 0 0 0 10px;
+  padding: 20px 0;
+  font-family: "Makinas";
+}
+
+.errors {
+  color: red;
+}
+.row .profile {
+  width: 95%;
+  margin: 0 auto 30px auto;
+  .heading {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    img {
+      height: 54px;
+      width: 54px;
+      margin-right: 15px;
+    }
+    h3 {
+      margin-top: 9px;
+      font-size: 1.8rem;
+    }
+  }
+  .user-info {
+    p {
+      margin-bottom: 5px;
+    }
+    .using_character {
+      margin-bottom: 25px;
+      img {
+        width: 100px;
+        height: 41px;
+        background-color: black;
+      }
+    }
+    .living-area {
+      margin-bottom: 25px;
+    }
+    .details {
+      margin-bottom: 25px;
+      p {
+        white-space: pre-wrap;
+      }
+    }
+  }
+}
+
+.schedule {
+  h3 {
+    width: 95%;
+    margin: 0 auto;
+    font-family: "Makinas";
+  }
+  .my-hoffs {
+    margin-bottom: 30px;
+  }
+  .others-hoffs {
+    .pt-hoffs {
+      margin-bottom: 30px;
+    }
+    .apply-now {
+      margin-bottom: 30px;
+    }
+  }
+}
+.schedule .hoff-card,.searched-hoffs .hoff-card{
+  width: 80%;
+  max-width: 350px;
+  padding: 0 20px;
+  margin: 20px auto;
+  border: solid #aaa 1px;
+  border-radius: 10px;
+  .hoff-name {
+    display: block;
+    margin-bottom: 25px;
+    margin-top: 20px;
+  }
+  a {
+    font-size: 23px;
+    color: #333;
+    &:hover {
+      color: #333;
+    }
+  }
+  .hoff-info {
+    display: flex;
+    a {
+      font-size: 15px;
+    }
+    p {
+      font-size: 15px;
+    }
+    .left {
+      flex-basis: 40%;
+    }
+    .right {
+      flex-basis: 60%;
+    }
+  }
+}
+
+.row .applications {
+  margin: 0 auto 30px auto;
+  .application {
+    margin: 25px 0;
+  }
+}
+.border-bottom {
+  border-bottom: solid #ddd 1px;
+}
+
+.no-info {
+  width: 90%;
+  margin: 0 auto;
+  font-size: 24px;
+}
+
+.noimage {
+  height: 54px;
+  width: 54px;
+}
+
+.input-form {
+  h1 {
+    margin: 0 auto;
+    max-width: 700px;
+  }
+}
+.form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  .password-forget {
+    width: 95%;
+    margin: 0 auto;
+    padding-top: 20px;
+    font-size: 1.1rem;
+  }
+}
+.field {
+  width: 95%;
+  margin: 20px auto;
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  input {
+    border: 1px solid #ccc;
+    width: 220px;
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  textarea {
+    width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 120px;
+  }
+  .arrow {
+    position: relative;
+    &:before {
+      position: absolute;
+      top: 2.8em;
+      left: 12.4em;
+      width: 0;
+      height: 0;
+      padding: 0;
+      content: '';
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid #666666;
+      pointer-events: none;
+    }
+  }
+  select {
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 220px;
+    height: 40px;
+    -webkit-appearance: none;/* ベンダープレフィックス(Google Chrome、Safari用) */
+    -moz-appearance: none; /* ベンダープレフィックス(Firefox用) */
+    appearance: none; /* 標準のスタイルを無効にする */
+  }
+  select::-ms-expand {
+    display: none;
+  }
+  .form-check {
+    margin-bottom: 10px;
+    .form-check-input {
+      width: 20px;
+      height: 20px;
+      margin-top: 7px;
+    }
+  }
+}
+
+.forget-password {
+  display: block;
+}
+
+.submit-wrapper {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.profile-image {
+  width: 95%;
+  margin: 20px auto;
+  p {
+    margin-bottom: 5px;
+  }
+  label {
+    background-color: #ddd;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
+  input {
+    display: none;
+  }
+}
+
+.search-form {
+  border: 1px solid #ccc;
+  width: 95%;
+  margin: 0 auto;
+  border-radius: 5px;
+  padding: 10px;
+  .submit-wrapper {
+    input {
+      width: 90px;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  }
+}
+
+.search-result {
+  margin-top: 40px;
+  padding-bottom: 0;
+  border-bottom: 1px solid #aaa;
+  display: inline-block;
+}
+@media (min-width: 768px) {
+  .row {
+    .profile {
+      background-color: #eee;
+      margin: 0;
+      max-width: 210px;
+      padding-left: 25px;
+      .heading {
+        display: block;
+        padding-bottom: 0;
+      }
+    }
+    .schedule {
+      max-width: 100%;
+      flex: 1 0 75%;
+      h3 {
+        margin: 0;
+      }
+    }
+  }
+  .input-form {
+    background-color: rgba(249, 248, 245, 0.1);
+    margin-bottom: -20px;
+  }
+  .form-wrapper {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    box-shadow: 0px 0px 15px 0px #888;
+    background-color: white;
+    padding: 10px 10px 30px 10px;
+  }
+  .searched-hoffs .row {
+    width: 95%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .input-form {
+    margin-bottom: -70px;
+  }
+}

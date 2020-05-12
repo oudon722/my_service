@@ -1,0 +1,22 @@
+<div class="hoff-card col-sm-5">
+  <%= link_to hoff.name, hoff_path(hoff), class: "hoff-name" %>
+  <div class="hoff-info">
+    <p class = "left">主催者</p>
+    <%= link_to hoff.owner.player_name, user_path(hoff.owner), class: "right" %>
+  </div>
+
+  <div class="hoff-info">
+    <p class = "left">開催日時</p>
+    <p class = "right"><%= "#{l hoff.dates}" %></p>
+  </div>
+
+  <div class="hoff-info">
+    <p class = "left">場所</p>
+    <p class = "right"><%= "#{hoff.prefecture.name} #{hoff.city.name}" %></p>
+  </div>
+
+  <div class="hoff-info">
+    <p class = "left">最寄り駅</p>
+    <p class = "right"><%= "#{hoff.station_name}" %></p>
+  </div>
+</div>

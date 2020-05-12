@@ -46,6 +46,7 @@ class PasswordResetsController < ApplicationController
     def valid_user
       unless (@user && @user.activated? && @user.authenticated?(:reset, params[:id]))
       redirect_to root_url
+      flash[:danger] = "アカウントが無効です"
       end
     end
 

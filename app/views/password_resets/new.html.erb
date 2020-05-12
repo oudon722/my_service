@@ -1,9 +1,16 @@
 <% provide(:title, "パスワード再設定") %>
-<h1>パスワードをお忘れですか？</h1>
-
-<%= form_for(:password_reset, url: password_resets_path) do |f| %>
-  <%= f.label :email, "メールアドレス" %>
-  <%= f.email_field :email, class: '' %>
-
-  <%= f.submit "再設定用のメールを送信", class: "btn btn-primary" %>
-<% end %>
+<div class="input-form">
+  <h1>パスワード再設定</h1>
+  <%= form_for(:password_reset, url: password_resets_path, html: { class: "form-wrapper" }) do |f| %>
+    <p class="password-forget">パスワードを忘れてしまった場合はメールアドレスを入力してパスワードを再設定してください。</p>
+    
+    <div class="field">
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.email_field :email, class: '' %>
+    </div>
+    
+    <div class="submit">
+      <%= f.submit "再設定用のメールを送信", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

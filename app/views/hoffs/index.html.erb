@@ -1,8 +1,8 @@
 <% provide(:title, "宅オフ一覧") %>
 
 <h1>宅オフ検索</h1>
-<p>検索したい条件だけ入力してください(複数可)。</p>
 <div class="search-form">
+  <h5>検索したい条件だけ入力してください(複数可)。</h5>
   <%= form_with(scope: :search, url: hoffs_path, method: :get, local: true) do |f| %>
 
     <div class="field">
@@ -11,21 +11,27 @@
     </div>
 
     <div class="field">
-      <% prefecture_options = Prefecture.order(:id).map { |c| [c.name, c.id, data: { children_path: prefecture_cities_path(c) }] } %>
-      <%= f.label :prefecture_id, "都道府県" %>
-      <%= f.select :prefecture_id, prefecture_options, { include_blank: true }, class: 'select-parent', value: @search_params[:prefecture_id] || current_user.prefecture_id %>
+      <div class="arrow">
+        <% prefecture_options = Prefecture.order(:id).map { |c| [c.name, c.id, data: { children_path: prefecture_cities_path(c) }] } %>
+        <%= f.label :prefecture_id, "都道府県" %>
+        <%= f.select :prefecture_id, prefecture_options, { include_blank: true }, class: 'select-parent', value: @search_params[:prefecture_id] || current_user.prefecture_id %>
+      </div>
     </div>
 
     <div class="field">
-      <% cities = @prefecture.try(:cities) || [] %>
-      <% cities_options = cities.map { |c| [c.name, c.id] } %>
-      <%= f.label :city_id, "市区町村" %>
-      <%= f.select :city_id, cities_options, { include_blank: true }, class: 'select-children', value: @search_params[:city_id] || current_user.city_id %>
+      <div class="arrow">
+        <% cities = @prefecture.try(:cities) || [] %>
+        <% cities_options = cities.map { |c| [c.name, c.id] } %>
+        <%= f.label :city_id, "市区町村" %>
+        <%= f.select :city_id, cities_options, { include_blank: true }, class: 'select-children', value: @search_params[:city_id] || current_user.city_id %>
+      </div>
     </div>
 
     <div class="field">
-      <%= f.label(:required_level, "求めるレベル") %>
-      <%= f.select :required_level, Hoff.required_levels.keys, { include_blank: true }, value: @search_params[:required_level], class: '' %>
+      <div class="arrow">
+        <%= f.label(:required_level, "求めるレベル") %>
+        <%= f.select :required_level, Hoff.required_levels.keys, { include_blank: true }, value: @search_params[:required_level], class: '' %>
+      </div>
     </div>
 
     <div class="field">
@@ -52,15 +58,19 @@
       <% end %>
     </div>
  -->
-    <%= f.submit "検索！", class: "btn, btn-primary" %>
+    <div class="submit-wrapper">
+      <%= f.submit "検索！", class: "btn, btn-primary" %>
+    </div>
   <% end %>
 </div>
 
-<h1>宅オフ一覧</h1>
-<% @hoff.each do |hoff| %>
-  <% if hoff.participants.count != hoff.max_pt_count %>
-    <li>
-      <%= link_to hoff.name, hoff_path(hoff) %>
-    </li>
-  <% end %>
-<% end %>
+<h1 class="search-result">検索結果</h1>
+<div class="searched-hoffs">
+  <div class="row">
+    <% @hoff.each do |hoff| %>
+      <% if hoff.participants.count != hoff.max_pt_count %>
+        <%= render partial: "shared/hoff_card", locals: { hoff: hoff } %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

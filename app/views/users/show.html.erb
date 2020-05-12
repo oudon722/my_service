@@ -1,32 +1,128 @@
 <% provide(:title, "#{@user.player_name}") %>
-<h1><%= "ユーザーの名前が#{@user.player_name}のページ" %></h1>
-<% if current_user.id == @user.id %>
-  <%= link_to 'ユーザー情報編集', edit_user_path(current_user) %>
-<% end %>
-
-<h1>作成した宅オフ一覧</h1>
-<% @user.my_hoffs.each do |hoff| %>
-  <%= link_to hoff.name, hoff_path(hoff) %>
-<% end %>
-
-<h1>参加する宅オフ一覧</h1>
-<% @user.others_hoffs.each do |hoff| %>
-  <% if hoff.pt_relationships.find_by(participant_id: @user.id).activated? %>
-    <%= link_to hoff.name, hoff_path(hoff), class: "pt_hoff" %>
-  <% else %>
-    <h1>申請中</h1>
-    <%= link_to hoff.name, hoff_path(hoff) %>
-  <% end %>
-<% end %>
-
-<h1>申請一覧</h1>
-<% @user.my_hoffs.each do |hoff| %>
-  <% hoff.pt_relationships.each do |rel| %>
-    <% if rel.activated == false %>
-      <h3><%= "#{hoff.name}に申請が来ています！" %></h3>
-      <%= link_to rel.participant.player_name, user_path(rel.participant) %>
-      <%= link_to "承認", new_hoff_relationship_activation_path(rel_id: rel.id), data: {confirm: "#{rel.participant.player_name}を承認しますか？"} %>
-      <%= link_to '断る', hoff_relationship_activation_path(rel, rel_id: rel.id), method: :delete, data: {confirm: "本当に断りますか？"} %>
+<h1>ユーザーページ</h1>
+<div class="row">
+  <div class="profile col-md-3">
+    <div class="heading border-bottom">
+      <% if @user.image? %>
+        <%= image_tag @user.image.url %>
+      <% else %>
+        <%= image_tag "noimage.jpeg" %>
+      <% end %>
+      <h3><%= "#{@user.player_name}" %></h3>
+    </div>
+    
+    <div class="user-info">
+      <div class= "using_character">
+        <p>使用キャラ</p>
+        <% if @user.using_character %>
+          <%= image_tag "SSBU_character/#{@user.using_character}.png" %>
+        <% else %>
+          <p>選択されていません</p>
+        <% end %>
+      </div>
+      
+      <div class="living-area">
+        <p>活動地域</p>
+        <% if @user.prefecture && @user.city %>
+          <p><%= "#{@user.prefecture.name} #{@user.city.name}" %></p>
+        <% elsif @user.prefecture %>
+          <p><%= "#{@user.prefecture.name}" %></p>
+        <% else %>
+          <p>選択されていません</p>
+          <% end %>
+      </div>
+      
+      <div class="details">
+        <p>プロフィール</p>
+        <p><%= "#{@user.details}" %></p>
+      </div>
+    </div>
+    
+    <% if current_user.id == @user.id %>
+    <%= link_to 'ユーザー情報編集', edit_user_path(current_user) %>
     <% end %>
-  <% end %>
-<% end %>
+  </div>
+  
+  <div class="schedule col-md-9">
+    <div class="row">
+      <div class="col-xl-7">
+        <div class="my-hoffs">
+          <h3 class="border-bottom">主催する宅オフ</h3>
+          <div class="hoff-cards">
+            <div class="row">
+              <% @user.my_hoffs.passed_due_date.order(created_at: :desc).each do |hoff| %>
+                <%= render partial: "shared/hoff_card", locals: { hoff: hoff } %>
+              <% end %>
+            </div>
+            <% if @user.my_hoffs.passed_due_date.count == 0 %>
+              <p class="no-info">主催する宅オフはありません。</p>
+            <% end %>
+          </div>
+        </div>
+        
+        <% if @user == current_user %>
+          <div class="others-hoffs">
+            <div class="pt-hoffs">
+              <h3 class="border-bottom">参加する宅オフ</h3>
+              <div class="row">
+                <%# xを定義 %>
+                <% x = 0 %>
+                <% @user.others_hoffs.passed_due_date.order(created_at: :desc).each do |hoff| %>
+                  <% if hoff.pt_relationships.find_by(participant_id: @user.id).activated? %>
+                    <% x += 1 %>
+                    <%= render partial: "shared/hoff_card", locals: { hoff: hoff } %>
+                  <% end %>
+                <% end %>
+              </div>
+              <% if x == 0 %>
+                <p class="no-info">参加する宅オフはありません。</p>
+              <% end %>
+            </div>
+            <div class="apply-now">
+              <h3 class="border-bottom">申請中</h3>
+              <div class="row">
+                <%# xを初期化 %>
+                <% x = 0 %>
+                <% @user.others_hoffs.passed_due_date.order(created_at: :desc).each do |hoff| %>
+                  <% if !hoff.pt_relationships.find_by(participant_id: @user.id).activated? %>
+                    <% x += 1 %>
+                    <%= render partial: "shared/hoff_card", locals: { hoff: hoff } %>
+                  <% end %>
+                <% end %>
+              </div>
+              <% if x == 0 %>
+                <p class="no-info">申請中の宅オフはありません。</p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      
+      <% if @user == current_user %>
+        <div class="applications col-xl-5">
+          <h3 class="border-bottom">申請一覧</h3>
+          <%# xを初期化 %>
+          <% x = 0 %>
+          <% @user.my_hoffs.passed_due_date.each do |hoff| %>
+            <% if hoff.pt_relationships.count != 0 %>
+              <% hoff.pt_relationships.each do |rel| %>
+                <% if rel.activated == false %>
+                  <% x += 1 %>
+                  <div class="application">
+                    <h4><%= "#{hoff.name}に申請が来ています！" %></h4>
+                    <%= link_to "#{rel.participant.player_name}", user_path(rel.participant) %>からの申請です
+                    <%= link_to "承認", new_hoff_relationship_activation_path(rel_id: rel.id), data: {confirm: "#{rel.participant.player_name}を承認しますか？"} %>
+                    <%= link_to '断る', hoff_relationship_activation_path(rel, rel_id: rel.id), method: :delete, data: {confirm: "本当に断りますか？"} %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if x == 0 %>
+            <p class="no-info">申請は来ていません。</p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

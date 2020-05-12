@@ -14,10 +14,18 @@ gem 'puma', '~> 3.7'
 #Use scss for plug-in
 gem 'sassc'
 
+#画像アップロード
+gem 'carrierwave'
+gem 'rmagick'
+
+# gem 'therubyracer', platforms: :ruby
+gem 'mini_racer', platforms: :ruby
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+gem "font-awesome-rails"
 #bootstrapを導入
-gem "bootstrap-sass", "~>3.3.6"
+gem 'bootstrap', '~> 4.4.1'
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem 'jquery-turbolinks'

@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  mount_uploader :image, ImageUploader
   belongs_to :city, optional: true
   belongs_to :prefecture, optional: true
   has_many :my_hoffs, class_name: "Hoff",
@@ -71,8 +72,7 @@ class User < ApplicationRecord
   #パスワード再設定の属性を設定する
   def create_reset_digest
     self.reset_token = User.new_token
-    update_attribute(:reset_digest,  User.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
+    update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
   end
 
   #パスワード再設定用のメールを送信する

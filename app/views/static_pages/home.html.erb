@@ -1,7 +1,48 @@
 <% provide(:title, "ホーム") %>
-<main>
-  <h1>宅オフをもっと簡単にスマ宅！</h1>
-</main>
-<footer>
-
-</footer>
+  <div class="wrapper">
+    <div class="title">
+      <h1>スマ宅</h1>
+      <p>宅オフのための掲示板</p>
+    </div>
+  </div>
+  
+  <div class="introduction">
+    <p>スマ宅は宅オフ募集に特化した掲示板です。宅オフを募集してみませんか？</p>
+    <%= link_to "登録して宅オフを募集", signup_path, class: "btn btn-primary" %>
+  </div>
+  
+  <div class="merits">
+    <h2>スマ宅を使う2つのメリット</h2>
+    
+    <div class="row">
+      <div class="can-search col-md-6">
+        <h3>地域ごとに検索できる</h3>
+        <div class="row">
+          <%#= image_tag '', alt: "検索画面の写真", class: "col-md-6" %>
+          <p class="">地方の宅オフは見つけにくいですが、スマ宅を使えばすぐに見つけることができます。</p>
+        </div>
+      </div>
+      <!--
+        <div class="can-record">
+          <h3>宅オフでの戦績を管理できる</h3>
+          <div class="row">
+            <p class="col-md-6">個人間の勝率や一つのキャラに対する勝率を分析してさらなるスキルアップを目指せます。</p>
+            <%= image_tag '', alt: "勝率表示ページの写真", class: "col-md-6" %>
+          </div>
+        </div>
+      -->
+      <div class="can-recruit col-md-6">
+        <h3>簡単に宅オフを募集できる</h3>
+        <div class="row">
+          <p class="">テンプレートに入力するだけですぐに宅オフを作成できます。</p>
+          <%#= image_tag '', alt: "宅オフ作成画面の写真", class: "col-md-6" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="signup">
+    <h2>今すぐ始めよう</h2>
+    <p>ツイッター認証を使っての登録も可能になる予定です。</p>
+    <%= link_to "登録はこちらから", signup_path, class: "btn btn-primary" %>
+  </div>

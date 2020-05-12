@@ -4,4 +4,5 @@ class HoffRelationship < ApplicationRecord
   belongs_to :participant, class_name: "User" #このclass_nameは必要
   validates :hoff_id, presence: true
   validates :participant_id, presence: true
+  
 end

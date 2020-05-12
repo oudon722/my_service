@@ -1,56 +1,81 @@
 <% provide(:title, "プロフィール更新") %>
-<h1>ユーザープロフィール更新</h1>
-
-<%= form_for(@user) do |f| %>
+<div class="input-form">
+  <h1>ユーザープロフィール更新</h1>
+  
+  <%= form_for(@user, html: { class: "form-wrapper" }) do |f| %>
   <%= render 'shared/error_messages' %>
   <div class="field">
     <%= f.label :last_name, "姓" %>
     <%= f.text_field :last_name %>
-    <%= f.label :first_name, "名" %>
+  </div>
+  <div class="field">
+    <%= f.label :first_name, "名前" %>
     <%= f.text_field :first_name %>
   </div>
-
+  
   <div class="field">
     <%= f.label :player_name, "ゲーム内での名前" %>
     <%= f.text_field :player_name %>
   </div>
-
-  <div class="field">
-    <% prefecture_options = Prefecture.order(:id).map { |c| [c.name, c.id, data: { children_path: prefecture_cities_path(c) }] } %>
-    <%= f.label :prefecture_id, "都道府県" %>
-    <%= f.select :prefecture_id, prefecture_options, { include_blank: true }, class: 'select-parent' %>
+  
+  <div class="profile-image">
+    <p>プロフィール画像</p>
+    <%= f.label :image, "ファイルを選択する" %>
+    <%= f.file_field :image %>
   </div>
-
+  
   <div class="field">
-    <% cities = @user.prefecture.try(:cities) || [] %>
-    <% cities_options = cities.map { |c| [c.name, c.id] } %>
-    <%= f.label :city_id, "市区町村" %>
-    <%= f.select :city_id, cities_options, { include_blank: true }, class: 'select-children' %>
+    <div class="arrow">
+      <% prefecture_options = Prefecture.order(:id).map { |c| [c.name, c.id, data: { children_path: prefecture_cities_path(c) }] } %>
+      <%= f.label :prefecture_id, "都道府県" %>
+      <%= f.select :prefecture_id, prefecture_options, { include_blank: true }, class: 'select-parent' %>
+    </div>
   </div>
-
+  
+  <div class="field">
+    <div class="arrow">
+      <% cities = @user.prefecture.try(:cities) || [] %>
+      <% cities_options = cities.map { |c| [c.name, c.id] } %>
+      <%= f.label :city_id, "市区町村" %>
+      <%= f.select :city_id, cities_options, { include_blank: true }, class: 'select-children' %>
+    </div>
+  </div>
+  
   <div class="field">
     <%= f.label :station_name, "最寄り駅" %>
     <%= f.text_field :station_name %>
-    <p>駅</p>
+    <span>駅</span>
   </div>
   <div class="field">
-    <%= f.label :ssbu_experience, "スマブラ歴" %>
-    <%= f.select :ssbu_experience, User.ssbu_experiences.keys, {prompt: '選択してください'},
-    class: '' %>
+    <div class="arrow">
+      <%= f.label :ssbu_experience, "スマブラ歴" %>
+      <%= f.select :ssbu_experience, User.ssbu_experiences.keys, {prompt: '選択してください'},
+      class: '' %>
+    </div>
   </div>
-
+  
   <div class="field">
-    <%= f.label :ssbu_skill, "スマブラの実力" %>
-    <%= f.select :ssbu_skill, User.ssbu_skills.keys, {prompt: '選択してください'},
-    class: '' %>
-    <span>オンラインをやってない方はこれくらいだと思うで問題ないです。</span>
+    <div class="arrow">
+      <%= f.label :ssbu_skill, "スマブラの実力" %>
+      <%= f.select :ssbu_skill, User.ssbu_skills.keys, {prompt: '選択してください'},
+      class: '' %>
+    </div>
+    <p>オンラインをやってない方はこれくらいだと思うで選択をお願いします。</p>
   </div>
-
+  
   <div class="field">
-    <%= f.label :using_character, "メイン使用キャラ" %>
-    <%= f.select :using_character, User.using_characters.keys, {prompt: '選択してください'},
-    class: '' %>
+    <div class="arrow">
+      <%= f.label :using_character, "メイン使用キャラ" %>
+      <%= f.select :using_character, User.using_characters.keys, {prompt: '選択してください'},
+      class: '' %>
+    </div>
   </div>
-
+  
+  <div class="field">
+    <%= f.label :details, "プロフィール" %>
+    <%= f.text_area :details %>
+  </div>
+  
   <%= f.submit "ユーザー情報更新！", class: "btn btn-primary" %>
-<% end %>
+  <% end %>
+</div>

@@ -1,0 +1,218 @@
+// Place all the styles related to the StaticPages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+//headerについてのsass
+@font-face {
+  font-family: "Makinas";
+  src: font-url('Makinas-4-Square.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Togebara";
+  src: font-url('TogebaraMedium.otf') format('truetype');
+  font-weight: nomal;
+  font-style: nomal;
+}
+@font-face {
+  font-family: "TogebaraBold";
+  src: font-url('TogebaraBold.otf') format('truetype');
+  font-weight: bold;
+  font-style: nomal;
+}
+header {
+  height: 60px;
+  background-color: #eee;
+  .row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .brand-icon {
+      width: 100px;
+      a {
+        padding-left: 20px;
+        padding-top: 10px;
+        img {
+          height: 54px;
+          width: 54px;
+        }
+      }
+    }
+    .dropdown {
+      position: relative;
+      width: 100px;
+      margin: 0 20px 0 auto;
+      text-align: right;
+      .btn {
+        width: 100%;
+        background-color: #555;
+        font-family: "Makinas";
+        color: white;
+        margin-top: 12px;
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: 45px;
+        left: 0;
+        min-width: 130px;
+        width: 130px;
+        .dropdown-item {
+          display: block;
+          font-family: "Makinas";
+          color: #444;
+          font-size: 18px;
+          margin-top: 10px;
+          padding: 0;
+        }
+      }
+    }
+    .hide-to-md {
+      display: none;
+    }
+    .links {
+      text-align: right;
+      padding: 15px 20px 0 0;
+      a {
+        font-family: "Makinas";
+        margin: 0 10px;
+        color: #444;
+        font-size: 20px;
+        &:hover {
+          color: #777;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.wrapper {
+  background-image: url("<%= asset_path('sumataku.jpeg') %>");
+  height: 200px;
+  background-size: cover;
+  .title {
+    h1 {
+    margin-top: 0;
+    font-family: "TogebaraBold";
+    padding-top: 40px;
+    color: red;
+    font-size: 60px;
+    text-align: center;
+    }
+    p {
+      font-family: "Togebara";
+      color: red;
+      font-size: 25px;
+      text-align: center;
+      margin-top: 25px;
+    }
+  }
+}
+
+.introduction {
+  margin: 20px auto 0 auto;
+  width: 95%;
+  p {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.merits {
+  width: 90%;
+  margin: 50px auto 0 auto;
+  h2 {
+    font-family: "Togebara";
+    text-align: center;
+  }
+  h3 {
+    font-weight: bold;
+  }
+  p {
+    font-size: 18px;
+  }
+  .can-search {
+    padding: 0 20px;
+  }
+  .can-recruit {
+    padding: 0 20px;
+  }
+}
+
+.signup {
+  width: 90%;
+  margin: 40px auto 0 auto;
+  text-align: center;
+  h2 {
+    font-family: "Togebara";
+  }
+  p {
+    font-size: 18px;
+  }
+}
+
+.help {
+  width: 95%;
+  margin: 0 auto;
+  .situation {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+  .recruitment {
+    margin-bottom: 40px;
+  }
+  .recruitment,.participation {
+    p {
+      font-size: 1.1rem;
+    }
+  }
+}
+footer {
+  border-top: 1px solid #ddd;
+  margin-top: 20px;
+  .row {
+    justify-content: space-between;
+    margin: 0;
+    .sumataku {
+      font-family: "Togebara";
+      margin: 20px auto 0 20px;
+      img {
+        width: 35px;
+        height: 35px;
+        margin-right: 12px;
+      }
+      h4 {
+        padding-top: 5px;
+      }
+    }
+    i {
+      font-size: 1.6rem;
+      margin: 20px 60px 0 auto;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  header .row .brand-icon {
+    width: 16.666666667%;
+  }
+  .hide-from-md {
+    display: none;
+  }
+
+  header .row .hide-to-md {
+    display: block;
+  }
+  
+  .introduction {
+    max-width: 900px;
+  }
+  .merits {
+    max-width: 900px;
+  }
+  
+  footer {
+    margin-top: 70px;
+  }
+}

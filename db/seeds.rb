@@ -18,8 +18,8 @@
 # end
 
 50.times do |n|
-  d1 = Time.parse("2020/4/26 00:00")
-  d2 = Time.parse("2020/5/6 00:00")
+  d1 = Time.parse("2020/5/7 00:00")
+  d2 = Time.parse("2020/5/14 00:00")
   owner_id = rand(1..5)
   owner_id1 = owner_id
   puts owner_id == owner_id1

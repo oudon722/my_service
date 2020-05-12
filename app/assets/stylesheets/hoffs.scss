@@ -1,3 +1,129 @@
 // Place all the styles related to the hoffs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.title-wrapper{
+  width: 95%;
+  max-width: 732px;
+  margin: 0 auto;
+  h1 {
+    font-family: monospace;
+    margin-bottom: 5px;
+  }
+  .owner {
+    display: flex;
+    p {
+      font-size: 1.1rem;
+      margin-right: 10px;
+      margin-bottom: 0;
+    }
+    img {
+      display: none;
+    }
+    a {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.info-change {
+  width: 95%;
+  max-width: 732px;
+  margin: 20px auto;
+}
+
+.several-info {
+  width: 95%;
+  max-width: 732px;
+  margin: 20px auto;
+  .details {
+    p {
+      font-size: 15px;
+      white-space: pre-wrap;
+      border: 1px solid #ddd;
+      padding: 7px;
+    }
+  }
+}
+.current-participants {
+  width: 95%;
+  max-width: 732px;
+  margin: 0 auto;
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0;
+  }
+  
+  .pt-count {
+    font-family: monospace;
+  }
+}
+
+.user-card {
+  width: 95%;
+  margin: 10px auto;
+  border: 1px solid #eee;
+  padding: 7px;
+  .user {
+    display: flex;
+    height: 65px;
+    .image {
+      img {
+        border-radius: 10px;
+      }
+    }
+    .user-info {
+      margin-left: 10px;
+      a {
+        color: #333;
+        font-size: 1.4rem;
+      }
+      .using-chara {
+        display: flex;
+        h5 {
+          margin-right: 10px;
+          text-height: 5px;
+        }
+      }
+    }
+  }
+}
+
+.submit {
+  width: 95%;
+  max-width: 732px;
+  margin: 40px auto 0 auto;
+  .btn-primary-black {
+    color: #ddd;
+    background-color: #2c71ba;
+    border-color: #2c71ba;
+    cursor: default;
+    &:hover {
+      color: #ddd;
+      background-color: #2c71ba;
+      border-color: #2c71ba;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .title-wrapper {
+    display: flex;
+    .owner {
+      margin-top: 30px;
+      margin-left: 60px;
+      p {
+        font-size: 1.2rem;
+        margin-top: 2px;
+        margin-right: 18px;
+      }
+      img {
+        display: inline;
+        width: 30px;
+        height: 30px;
+      }
+      a {
+        font-size: 1.2rem;
+        margin-left: 5px;
+      }
+    }
+  }
+}

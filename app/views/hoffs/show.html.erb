@@ -1,28 +1,77 @@
 <% provide(:title, "#{@hoff.name}") %>
-<h1><%= @hoff.name %>のページ</h1>
-<h2><%= l @hoff.dates %>開催！</h2>
+<div class="title-wrapper">
+  <h1 class="hoff-name"><%= @hoff.name %></h1>
+  <div class="owner">
+    <p>主催者</p>
+    <% if @hoff.owner.image? %>
+      <%= image_tag @hoff.owner.image.url %>
+    <% else %>
+      <%= image_tag "noimage.jpeg", class: "noimage" %>
+    <% end %>
+    <%= link_to @hoff.owner.player_name, user_path(@hoff.owner) %>
+  </div>
+</div>
+<% if @hoff.owner.id == current_user.id %>
+  <div class="info-change">
+    <%= link_to "宅オフの情報を変更する", edit_hoff_path(@hoff) %>
+    <%= link_to "宅オフを削除する", hoff_path(@hoff), method: :delete, data: {confirm: "本当に削除しますか？"} %>
+  </div>
+<% end %>
 
-<h1>参加者一覧</h1>
-<% if !@hoff.participants.nil? %>
-  <% @hoff.pt_relationships.each do |pt_rel| %>
-    <% if pt_rel.activated == true %>
-    <li>
-      <%= link_to pt_rel.participant.player_name, user_path(pt_rel.participant) %>
-    </li>
+<div class="several-info">
+  <div class="start-dates">
+    <h4>開催時間</h4>
+    <p><%= @hoff.dates.strftime("%y/%m/%d %H:%M") %> 〜 <%= @hoff.end_dates.strftime("%y/%m/%d %H:%M") %></p>
+  </div>
+  
+  <div class="pt-cost">
+    <h4>参加費</h4>
+    <p><%= @hoff.pt_cost %>円</p>
+  </div>
+  
+  <div class="level">
+    <h4>レベル</h4>
+    <p><%= @hoff.required_level %></p>
+  </div>
+  
+  <div class="place">
+    <h4>場所</h4>
+    <p><%= @hoff.prefecture.name %> <%= @hoff.city.name %> (最寄り駅: <%= @hoff.station_name %>)</p>
+  </div>
+  
+  <div class="parking">
+    <h4>駐車場</h4>
+    <p><%= @hoff.parking_space %></p>
+  </div>
+  
+  <div class="details">
+    <h4>紹介文</h4>
+    <p><%= @hoff.details %></p>
+  </div>
+</div>
+
+<div class="current-participants">
+  <h1>現在の参加者 <span class="pt-count"><%= @hoff.pt_relationships.where(activated: true).count %>人/<%= @hoff.max_pt_count %>人</span></h1>
+  <% if !@hoff.participants.nil? %>
+    <% @hoff.pt_relationships.each do |pt_rel| %>
+      <% if pt_rel.activated == true %>
+      <%= render partial: "shared/user_card", locals: { user: pt_rel.participant } %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>
 
-<% if @hoff.owner.id == current_user.id %>
-  <%= link_to "この宅オフの情報を変更する", edit_hoff_path(@hoff) %>
-  <%= link_to "この宅オフを削除する", hoff_path(@hoff), method: :delete, data: {confirm: "本当に削除しますか？"} %>
-<% end %>
-
-<% if !current_user.nil? && @hoff.owner.id != current_user.id && !@hoff.participants.exists?(id: current_user.id) && @hoff.dates > Time.zone.now && @hoff.participants.count < @hoff.max_pt_count %>
-  <%= form_for(current_user.hoff_relationships.build) do |f| %>
-    <%= hidden_field_tag :hoff_id, @hoff.id %>
-    <%= f.submit "参加を申請する", class: "btn, btn-primary" %>
+<div class="submit">
+  <% if !current_user.nil? && @hoff.owner.id != current_user.id && !@hoff.participants.exists?(id: current_user.id) && @hoff.dates > Time.zone.now && @hoff.participants.count < @hoff.max_pt_count %>
+    <%= form_for(current_user.hoff_relationships.build) do |f| %>
+      <%= hidden_field_tag :hoff_id, @hoff.id %>
+      <%= f.submit "参加を申請する", class: "btn, btn-primary" %>
+    <% end %>
+  <% elsif @hoff.participants.where(activated: false).exists?(id: current_user.id) %>
+    <h4 class="btn btn-primary-black">既に申請済みです</h4>
+  <% elsif @hoff.participants.where(activated: true).exists?(id: current_user.id) %>
+    <h4 class="btn btn-primary-black">既に参加済みです</h4>
+  <% elsif @hoff.participants.count == @hoff.max_pt_count %>
+    <h4 class="btn btn-primary-black">参加者が上限に達しています。</h4>
   <% end %>
-<% elsif @hoff.participants.count == @hoff.max_pt_count %>
-  <h2>参加者が上限に達しています。</h2>
-<% end %>
+</div>

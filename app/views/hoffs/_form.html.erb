@@ -1,4 +1,4 @@
-<%= form_for(@hoff) do |f| %>
+<%= form_for(@hoff, html: { class: "form-wrapper" }) do |f| %>
   <%= render "shared/hoff_error_messages" %>
 
   <div class="field">
@@ -14,21 +14,27 @@
   </div>
 
   <div class="field">
-    <% prefecture_options = Prefecture.order(:id).map { |c| [c.name, c.id, data: { children_path: prefecture_cities_path(c) }] } %>
-    <%= f.label :prefecture_id, "都道府県" %>
-    <%= f.select :prefecture_id, prefecture_options, { include_blank: true }, class: 'select-parent' %>
+    <div class="arrow">
+      <% prefecture_options = Prefecture.order(:id).map { |c| [c.name, c.id, data: { children_path: prefecture_cities_path(c) }] } %>
+      <%= f.label :prefecture_id, "都道府県" %>
+      <%= f.select :prefecture_id, prefecture_options, { include_blank: true }, class: 'select-parent' %>
+    </div>
   </div>
 
   <div class="field">
-    <% cities = @hoff.prefecture.try(:cities) || [] %>
-    <% cities_options = cities.map { |c| [c.name, c.id] } %>
-    <%= f.label :city_id, "市区町村" %>
-    <%= f.select :city_id, cities_options, { include_blank: true }, class: 'select-children' %>
+    <div class="arrow">
+      <% cities = @hoff.prefecture.try(:cities) || [] %>
+      <% cities_options = cities.map { |c| [c.name, c.id] } %>
+      <%= f.label :city_id, "市区町村" %>
+      <%= f.select :city_id, cities_options, { include_blank: true }, class: 'select-children' %>
+    </div>
   </div>
 
   <div class="field">
-    <%= f.label :required_level %>
-    <%= f.select :required_level, Hoff.required_levels.keys, { include_blank: true }, class: '' %>
+    <div class="arrow">
+      <%= f.label :required_level %>
+      <%= f.select :required_level, Hoff.required_levels.keys, { include_blank: true }, class: '' %>
+    </div>
   </div>
 
   <div class="field">
@@ -38,7 +44,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :max_pt_count %>
+    <%= f.label :max_pt_count, "参加人数上限 (主催者を除いた数)"%>
     <%= f.telephone_field :max_pt_count %>
     <span>人</span>
   </div>
@@ -68,11 +74,12 @@
   </div>
  -->
   <div class="field">
-<%# 駅まで迎えに行くのか、駅からどれくらいの距離なのかなどを書いてもらう %>
+<%# 駅まで迎えに行くのか、駅からどれくらいの距離なのか、注意事項などを書いてもらう %>
     <%= f.label :details %>
     <%= f.text_area :details %>
   </div>
 
-
-  <%= f.submit yield(:button_text), class: "btn, btn-primary" %>
+  <div class="submit">
+    <%= f.submit yield(:button_text), class: "btn, btn-primary" %>
+  </div>
 <% end %>

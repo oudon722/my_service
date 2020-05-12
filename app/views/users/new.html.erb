@@ -1,26 +1,42 @@
 <% provide(:title, "新規登録") %>
-<h1>ユーザー新規作成</h1>
-
-<%= form_for(@user) do |f| %>
+<div class="input-form">
+  <h1>ユーザー新規作成</h1>
+  
+  <%= form_for(@user, html: { class: "form-wrapper" }) do |f| %>
   <%= render 'shared/error_messages' %>
-
-  <%= f.label :last_name, "姓" %>
-  <%= f.text_field :last_name %>
-
-  <%= f.label :first_name, "名" %>
-  <%= f.text_field :first_name %>
-
-  <%= f.label :player_name, "ゲーム内での名前" %>
-  <%= f.text_field :player_name %>
-
-  <%= f.label :email, "メールアドレス" %>
-  <%= f.email_field :email %>
-
-  <%= f.label :password, "パスワード" %>
-  <%= f.password_field :password %>
-
-  <%= f.label :password_confirmation, "パスワード(確認)" %>
-  <%= f.password_field :password_confirmation %>
-
-  <%= f.submit "確認メールを送る", class: "btn btn-primary" %>
-<% end %>
+  
+  <div class="field">
+    <%= f.label :last_name, "姓" %>
+    <%= f.text_field :last_name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :first_name, "名前" %>
+    <%= f.text_field :first_name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :player_name, "ゲーム内での名前" %>
+    <%= f.text_field :player_name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :email, "メールアドレス" %>
+    <%= f.email_field :email %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :password, "パスワード" %>
+    <%= f.password_field :password %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :password_confirmation, "パスワード(確認)" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  
+  <div class="submit">
+    <%= f.submit "確認メールを送る", class: "btn btn-primary" %>
+  </div>
+  <% end %>
+</div>

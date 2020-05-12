@@ -1,0 +1,18 @@
+<div class="user-card">
+  <div class="user">
+    <div class="image">
+      <% if user.image? %>
+        <%= image_tag user.image.url %>
+      <% else %>
+        <%= image_tag "noimage.jpeg", class: "noimage" %>
+      <% end %>
+    </div>
+    <div class="user-info">
+      <%= link_to user.player_name, user_path(user) %>
+      <div class="using-chara">
+        <h5>メインキャラ：</h5>
+        <h5><%= user.using_character %></h5>
+      </div>
+    </div>
+  </div>
+</div>

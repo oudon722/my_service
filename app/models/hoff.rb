@@ -24,7 +24,7 @@ class Hoff < ApplicationRecord
   }
 
   enum parking_space: {
-    無料駐車場あり:1,有料駐車場あり:2,駐車場なし:3
+    無料駐車場あり:1,有料駐車場あり:2,なし:3
   }
 
   enum permit_first_look: {

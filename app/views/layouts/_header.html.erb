@@ -1,11 +1,29 @@
 <header>
   <div class="row">
-    <div class="brand-icon col-sm-2">
+    <div class="brand-icon col-md-2">
       <%= link_to root_path, class: '' do %>
           <%= image_tag "gameicon.png" %>
       <% end %>
     </div>
-    <div class="links col-sm-10">
+    <div class="dropdown hide-from-md">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        メニュー
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <% if logged_in? %>
+          <%= link_to 'ログアウト', logout_path, class: 'dropdown-item', method: :delete %>
+          <%= link_to '宅オフを探す', hoffs_path, class: 'dropdown-item' %>
+          <%= link_to '宅オフを作る', new_hoff_path, class: 'dropdown-item' %>
+          <%= link_to 'ユーザーページ', user_path(current_user), class: 'dropdown-item' %>
+        <% else %>
+          <%= link_to '新規登録', signup_path, class: 'dropdown-item' %>
+          <%= link_to 'ログイン', login_path, class: 'dropdown-item' %>
+        <% end %>
+        <%# link_to 'スマ宅！とは', about_path, class: 'dropdown-item' %>
+        <%= link_to 'ヘルプ', help_path, class: 'dropdown-item' %>
+      </div>
+    </div>
+    <div class="links hide-to-md col-md-10">
       <% if logged_in? %>
         <%= link_to 'ログアウト', logout_path, class: '', method: :delete %>
         <%= link_to '宅オフを探す', hoffs_path, class: '' %>
@@ -15,8 +33,8 @@
         <%= link_to '新規登録', signup_path, class: '' %>
         <%= link_to 'ログイン', login_path, class: '' %>
       <% end %>
-        <%= link_to 'スマ宅！とは', about_path, class: '' %>
-        <%= link_to 'ヘルプ', help_path, class: '' %>
+      <%# link_to 'スマ宅！とは', about_path, class: '' %>
+      <%= link_to 'ヘルプ', help_path, class: '' %>
     </div>
   </div>
 </header>

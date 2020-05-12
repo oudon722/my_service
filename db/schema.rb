@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200426013412) do
+ActiveRecord::Schema.define(version: 20200507063901) do
 
   create_table "cities", force: :cascade do |t|
     t.integer "prefecture_id"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20200426013412) do
     t.string "station_name"
     t.integer "city_id"
     t.integer "prefecture_id"
+    t.text "details", default: "よろしくお願いします。"
+    t.string "image"
   end
 
 end
