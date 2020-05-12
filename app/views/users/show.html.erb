@@ -4,9 +4,9 @@
   <div class="profile col-md-3">
     <div class="heading border-bottom">
       <% if @user.image? %>
-        <%= image_tag @user.image.url %>
+        <%= image_tag asset_path(@user.image.url) %>
       <% else %>
-        <%= image_tag "noimage.jpeg" %>
+        <%= image_tag asset_path("noimage.jpeg") %>
       <% end %>
       <h3><%= "#{@user.player_name}" %></h3>
     </div>
@@ -15,7 +15,7 @@
       <div class= "using_character">
         <p>使用キャラ</p>
         <% if @user.using_character %>
-          <%= image_tag "SSBU_character/#{@user.using_character}.png" %>
+          <%= image_tag asset_path("SSBU_character/#{@user.using_character}.png") %>
         <% else %>
           <p>選択されていません</p>
         <% end %>

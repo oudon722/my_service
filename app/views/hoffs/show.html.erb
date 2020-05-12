@@ -4,9 +4,9 @@
   <div class="owner">
     <p>主催者</p>
     <% if @hoff.owner.image? %>
-      <%= image_tag @hoff.owner.image.url %>
+      <%= image_tag asset_path(@hoff.owner.image.url) %>
     <% else %>
-      <%= image_tag "noimage.jpeg", class: "noimage" %>
+      <%= image_tag asset_path("noimage.jpeg"), class: "noimage" %>
     <% end %>
     <%= link_to @hoff.owner.player_name, user_path(@hoff.owner) %>
   </div>

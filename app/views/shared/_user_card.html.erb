@@ -2,9 +2,9 @@
   <div class="user">
     <div class="image">
       <% if user.image? %>
-        <%= image_tag user.image.url %>
+        <%= image_tag asset_path(user.image.url) %>
       <% else %>
-        <%= image_tag "noimage.jpeg", class: "noimage" %>
+        <%= image_tag asset_path("noimage.jpeg"), class: "noimage" %>
       <% end %>
     </div>
     <div class="user-info">
